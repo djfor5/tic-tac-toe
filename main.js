@@ -130,46 +130,7 @@ let gameplay = (() => {
 })()
 
 
-
-
-
 let tiles = document.querySelectorAll('.tile')
-// tiles = Array.from(tiles)
-
-// for (i in tiles) {
-//   tiles[i].addEventListener('click', (event)=>{
-
-//     let checkGameState = gameplay.checkForWinner(Gameboard.gameboard)
-//     if (!checkGameState.isOngoing) {
-//       console.log(`Game over. Tile click invalid. Reset game to start over.`)
-//       return // prevent clicking on tile if game already won
-//     }
-
-//     tileId = event.target.id
-//     if (Gameboard.gameboard[tileId] !== null) return // prevent clicking on tile if it already has a value (non-null) 
-//     const playerSwitch = gameplay.switchPlayer(player1, player2)
-//     Gameboard.gameboard[tileId] = playerSwitch.currentPlayer
-    
-//     if (playerSwitch.playerToggle === 'A') {
-//       tiles[i].classList.add('playerA')
-//     } else if (playerSwitch.playerToggle === 'B') {
-//       tiles[i].classList.add('playerB')
-//     }
-//     render(Gameboard.gameboard)
-
-//     checkGameState = gameplay.checkForWinner(Gameboard.gameboard)
-//     if (!checkGameState.isOngoing) {
-//       const updateWinner = gameplay.updateWinnerIndex(Gameboard.gameboard)
-//       console.log(updateWinner.index)
-//       tiles[updateWinner.index.index1].classList.add('winner')
-//       tiles[updateWinner.index.index2].classList.add('winner')
-//       tiles[updateWinner.index.index3].classList.add('winner')
-//       return // prevent clicking if game already won
-//     }
-
-//   })
-// }
-
 tiles.forEach((tile) => {
   tile.addEventListener('click', (event)=>{
 
