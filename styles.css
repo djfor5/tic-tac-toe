@@ -44,12 +44,16 @@ body {
   border-right: none;
 }
 
-.cross {
-  /* background-color: rgb(133, 177, 133); */
+.playerA {
+  background-color: rgba(228, 247, 59, 0.5);
 }
 
-.nought {
-  /* background-color: rgb(150, 150, 201); */
+.playerB {
+  background-color: rgba(106, 106, 180, 0.5);
+}
+
+.winner {
+  background-color: rgba(37, 248, 18, 0.75);
 }
 
 .tile {
