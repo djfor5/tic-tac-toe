@@ -634,9 +634,6 @@ function Player(name, playerSymbol) {
 }
 const player1 = Player("Player 1", "X");
 const player2 = Player("Player 2", "O");
-
-// console.log(`Current player: ${player1.name} '${player1.playerSymbol}'`)
-
 render(Gameboard.gameboard); // render initial blank board
 
 const gameplay = (() => {
@@ -683,10 +680,12 @@ const gameplay = (() => {
         const hij = arr[3 * r + (c - 2) - 4] === arr[3 * (r - 1) + (c - 1) - 4]; // compare diagonal
         const ijk = arr[3 * r + (c - 2) - 4] === arr[3 * (r - 2) + c - 4]; // compare diagonal, gap
 
+        const jkl = arr[3 * r + (c - 2) - 4] !== null; // prevent glitch win clicking bottom right
+
         const rowAllSame = abc && bcd && cde;
         const columnAllSame = abc && def && efg;
         const topLeftToBottomRightAllSame = abc && fgh && ghi;
-        const bottomLeftToTopRightAllSame = abc && hij && ijk;
+        const bottomLeftToTopRightAllSame = abc && hij && ijk && jkl;
         const rowWinner = isLastColumn && rowAllSame;
         const columnWinner = isLastRow && columnAllSame;
         const diagonalForwardWinner = isLastRow && isLastColumn && bottomLeftToTopRightAllSame;
@@ -798,14 +797,12 @@ tiles.forEach(tile => {
     checkGameState = gameplay.checkForWinner(Gameboard.gameboard);
     if (!checkGameState.isOngoing) {
       const updateWinner = gameplay.updateWinnerIndex(Gameboard.gameboard);
-      // console.log(updateWinner.index)
       // tile1
       document.getElementById(`${updateWinner.index.index1}`).classList.add("winner");
       // tile2
       document.getElementById(`${updateWinner.index.index2}`).classList.add("winner");
       // tile3
       document.getElementById(`${updateWinner.index.index3}`).classList.add("winner");
-      // prevent clicking if game already won
     }
   });
 });
