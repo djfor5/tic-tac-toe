@@ -18,8 +18,6 @@ function Player(name, playerSymbol) {
 const player1 = Player("Player 1", "X");
 const player2 = Player("Player 2", "O");
 
-// console.log(`Current player: ${player1.name} '${player1.playerSymbol}'`)
-
 render(Gameboard.gameboard); // render initial blank board
 
 const gameplay = (() => {
@@ -48,8 +46,8 @@ const gameplay = (() => {
   const checkForWinner = (arr) => {
     for (let r = 1; r <= 3; r++) { // rows numbered from 1 to 3 (left to right)
       for (let c = 1; c <= 3; c++) { // columns numbered from 1 to 3 (top to bottom)
-        const isLastColumn = c === 3;
-        const isLastRow = r === 3;
+        const isLastColumn = (c === 3);
+        const isLastRow = (r === 3);
 
         const abc = arr[3 * r + c - 4] !== null; // clicked tile must not be null
         const bcd = arr[3 * r + c - 4] === arr[3 * r + (c - 1) - 4]; // compare adjacent columns
@@ -64,10 +62,12 @@ const gameplay = (() => {
         const hij = arr[3 * r + (c - 2) - 4] === arr[3 * (r - 1) + (c - 1) - 4]; // compare diagonal
         const ijk = arr[3 * r + (c - 2) - 4] === arr[3 * (r - 2) + c - 4]; // compare diagonal, gap
 
+        const jkl = arr[3 * r + (c - 2) - 4] !== null; // prevent glitch win clicking bottom right
+
         const rowAllSame = abc && bcd && cde;
         const columnAllSame = abc && def && efg;
         const topLeftToBottomRightAllSame = abc && fgh && ghi;
-        const bottomLeftToTopRightAllSame = abc && hij && ijk;
+        const bottomLeftToTopRightAllSame = abc && hij && ijk && jkl;
 
         const rowWinner = isLastColumn && rowAllSame;
         const columnWinner = isLastRow && columnAllSame;
@@ -91,8 +91,8 @@ const gameplay = (() => {
   const updateWinnerIndex = (arr) => {
     for (let r = 1; r <= 3; r++) { // rows numbered from 1 to 3 (left to right)
       for (let c = 1; c <= 3; c++) { // columns numbered from 1 to 3 (top to bottom)
-        const isLastColumn = c === 3;
-        const isLastRow = r === 3;
+        const isLastColumn = (c === 3);
+        const isLastRow = (r === 3);
 
         const abc = arr[3 * r + c - 4] !== null; // clicked tile must not be null
         const bcd = arr[3 * r + c - 4] === arr[3 * r + (c - 1) - 4]; // compare adjacent columns
@@ -167,14 +167,12 @@ tiles.forEach((tile) => {
     checkGameState = gameplay.checkForWinner(Gameboard.gameboard);
     if (!checkGameState.isOngoing) {
       const updateWinner = gameplay.updateWinnerIndex(Gameboard.gameboard);
-      // console.log(updateWinner.index)
       // tile1
       document.getElementById(`${updateWinner.index.index1}`).classList.add("winner");
       // tile2
       document.getElementById(`${updateWinner.index.index2}`).classList.add("winner");
       // tile3
       document.getElementById(`${updateWinner.index.index3}`).classList.add("winner");
-      // prevent clicking if game already won
     }
   });
 });
